@@ -1,0 +1,19 @@
+{
+    "credentials": {
+        "user": "daeabacu",
+        "password": "Daeabacu$2022",
+        "account": "NKB53754.us-east-1"
+    },
+    "destination": {
+        "warehouse": "COMPUTE_WH",
+        "database": "jobsity",
+        "schema": "trips",
+        "table": "trips_staging_table"
+    },
+    "email_config": {
+        "user": "jobsitytechtest@gmail.com",
+        "password": "Daeabacu$2022",
+        "recipient": "daeabacu@gmail.com"
+    },
+    "polygon": "POLYGON((7.513135087952872 45.04417775442011, 7.56304564848932 44.97612466562052, 7.671077441892763 45.00676340143624, 7.739660019780326 45.10100884469237, 7.513135087952872 45.04417775442011))"
+}

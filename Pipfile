@@ -1,0 +1,15 @@
+[[source]]
+url = "https://pypi.org/simple"
+verify_ssl = true
+name = "pypi"
+
+[packages]
+pandas = "*"
+snowflake-connector-python = "==2.7.3"
+pyarrow = "==6.0.0"
+shapely = "*"
+
+[dev-packages]
+
+[requires]
+python_version = "3.9"
