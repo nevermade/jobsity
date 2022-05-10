@@ -44,7 +44,7 @@ You must have docker installed on your machine. **There is a video on the resour
 ```sh
     docker build -t jobsity-app .
 ```
-5. Run the image and create a container:
+5. Run the image and create a container (this is where the video starts):
 ```sh
 docker run -p 8888:8888 -v "C:/input":"/home/jovyan/work/jobsity/input" jobsity-app
 ```
