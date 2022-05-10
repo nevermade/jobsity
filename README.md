@@ -2,29 +2,33 @@
 
 This app was built to read a csv file from a local storage and upload it to a database in snowflake. The program will read the file in chunks to overcome memory issues for big files.
 
-After that it reads the data from there and process the weekly average number of trips for a given region. Note: I've used the shapely library to accomplish this task.
+After that, it reads the data from there and process the weekly average number of trips for a given region. Note: I've used the shapely library to accomplish this task.
 
-You can test the app by building the container inside it and following the steps below.
+You can test the app by building the container file inside the project and following the steps mentioned in this section.
 
-The username and password for snowflake is in the email sent
 
 [How to use the app](#how-to-use-the-app)
+
+
+Note: The username and password for snowflake is in the email that I sent to you
 
 ## Assumptions and considerations
 
 * I considered that a trip is inside a polygon if the origin coordinate is in the polygon.
 
-* The final user has to mount the local path into the container as described on the section below.
+* The final user has to mount the local path into the container and in this path there should be the csv file to be uploaded and the config.json file.
 
 * Since I am using PySpark this script is scalable for large datasets.
 
-* In the config file there is a "recipient" key where you can set a new email address so the process will send the status of the ingestion process. This is an example of the email after the process has finished uploading the data to snowflake
+* There is a video with some details in the resources folder.
+
+* In the config file there is a "recipient" key where you can set a new email address so the process will send the status of the ingestion to that email. This is an example of the email after the process has finished uploading the data to snowflake
 
 ![email](resources/email_notification.jpg)
 
 # How it works
 
-The app needs a config file
+The app needs a config file that is stored on the mounted folder when running the container.
 
 Here is a diagram of how the app works.
 
@@ -44,13 +48,13 @@ You must have docker installed on your machine. **There is a video on the resour
 ```sh
     docker build -t jobsity-app .
 ```
-5. Run the image and create a container (this is where the video starts):
+5. Run the image and create a container (The tutorial from the video starts here):
 ```sh
 docker run -p 8888:8888 -v "C:/input":"/home/jovyan/work/jobsity/input" jobsity-app
 ```
 Note: Instead of "C:/input" you must specify the path where the config.file and the csv are located from your local machine
 
-6. Open the container command line inside docker and execute the following commands:
+6. Open the container command line inside docker and execute the following commands to install the required dependencies:
 
 ```sh
 cd work/jobsity/
@@ -59,7 +63,7 @@ pipenv shell
 
 pipenv install
 ```
-7. To execute the program you must run this command:
+7. To execute the program you must run this command. Note that here I specify the name of the file that is going to be uploaded and that is stored in your local machine:
 ```sh
 spark-submit --packages net.snowflake:snowflake-jdbc:3.13.14,net.snowflake:spark-snowflake_2.12:2.10.0-spark_3.1 main.py "trips.csv"
 ```
@@ -68,7 +72,7 @@ spark-submit --packages net.snowflake:snowflake-jdbc:3.13.14,net.snowflake:spark
 
 You should get the results like the video.
 
-To check that table was populated from the process you need to go to Snowflake: 
+To check that table was created and has data you can visit this url in snowflake:
 
 https://app.snowflake.com/us-east-1/nkb53754/data/databases/JOBSITY/schemas/TRIPS/
 
@@ -76,7 +80,7 @@ https://app.snowflake.com/us-east-1/nkb53754/data/databases/JOBSITY/schemas/TRIP
 
 # Explaining the config file
 
-In this file we specify the credentials for snowflake and the destination table for the upload process. We also set the credentials for the email user that the job will use to send email notifications. Finally, it also contains the polygon that is going to be used on the program to calculate the average weekly trips for the region defined by the polygon.
+In this file we specify the credentials for snowflake and the destination table for the ingestion process. We also set the credentials for the email user that the job will use to send email notifications. Finally, it also contains the polygon that is going to be used on the program to calculate the average weekly trips for the region defined by the polygon.
 
 ```json
 {
