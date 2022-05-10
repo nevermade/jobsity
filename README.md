@@ -10,13 +10,17 @@ The username and password for snowflake is in the email sent
 
 [How to use the app](#how-to-use-the-app)
 
-## Assumptions and details
+## Assumptions and considerations
 
 * I considered that a trip is inside a polygon if the origin coordinate is in the polygon.
 
 * The final user has to mount the local path into the container as described on the section below.
 
 * Since I am using PySpark this script is scalable for large datasets.
+
+* In the config file there is a "recipient" key where you can set a new email address so the process will send the status of the ingestion process. This is an example of the email after the process has finished uploading the data to snowflake
+
+![email](resources/email_notification.jpg)
 
 # How it works
 
@@ -60,6 +64,8 @@ pipenv install
 spark-submit --packages net.snowflake:snowflake-jdbc:3.13.14,net.snowflake:spark-snowflake_2.12:2.10.0-spark_3.1 main.py "trips.csv"
 ```
 
+
+
 You should get the results like the video.
 
 To check that table was populated from the process you need to go to Snowflake: 
@@ -99,7 +105,7 @@ In this file we specify the credentials for snowflake and the destination table 
 # Additional requested features
 
 1. The container definition file is inside the project
-2. This would be the diagram for an amazon solution for this project:    
+2. This would be the diagram for an amazon solution for this project: 
 ![logo](resources/amazon_schema.jpg)
 3. The SQL queries are insider the [SQL](sql/) folder
 
