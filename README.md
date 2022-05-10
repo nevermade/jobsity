@@ -6,6 +6,8 @@ After that it reads the data from there and process the weekly average number of
 
 You can test the app by building the container inside it and following the steps below.
 
+The username and password for snowflake is in the email sent
+
 [How to use the app](#how-to-use-the-app)
 
 ## Assumptions and details
@@ -42,7 +44,7 @@ You must have docker installed on your machine. **There is a video on the resour
 ```sh
 docker run -p 8888:8888 -v "C:/input":"/home/jovyan/work/jobsity/input" jobsity-app
 ```
-Note: Instead of "C:/input" you must specify the path where the config.file and the csv are located
+Note: Instead of "C:/input" you must specify the path where the config.file and the csv are located from your local machine
 
 6. Open the container command line inside docker and execute the following commands:
 
@@ -58,7 +60,11 @@ pipenv install
 spark-submit --packages net.snowflake:snowflake-jdbc:3.13.14,net.snowflake:spark-snowflake_2.12:2.10.0-spark_3.1 main.py "trips.csv"
 ```
 
-You should get the results like the following image for the polygon:
+You should get the results like the video.
+
+To check that table was populated from the process you need to go to Snowflake: 
+
+https://app.snowflake.com/us-east-1/nkb53754/data/databases/JOBSITY/schemas/TRIPS/
 
 
 
@@ -96,3 +102,11 @@ In this file we specify the credentials for snowflake and the destination table 
 2. This would be the diagram for an amazon solution for this project:    
 ![logo](resources/amazon_schema.jpg)
 3. The SQL queries are insider the [SQL](sql/) folder
+
+You can test that the query works inside snowflake
+
+https://app.snowflake.com/us-east-1/nkb53754/worksheets
+
+There are two worksheets called "cheap_mobile_regions" and "latestdatasource". Inside them are the queries where you can run them and see the results.
+
+
