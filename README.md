@@ -8,6 +8,14 @@ You can test the app by building the container inside it and following the steps
 
 [How to use the app](#how-to-use-the-app)
 
+## Assumptions and details
+
+* I considered that a trip is inside a polygon if the origin coordinate is in the polygon.
+
+* The final user has to mount the local path into the container as described on the section below.
+
+* Since I am using PySpark this script is scalable for large datasets.
+
 # How it works
 
 The app needs a config file
@@ -81,3 +89,10 @@ In this file we specify the credentials for snowflake and the destination table 
     # POLYGON((7.513135087952872 45.04417775442011, 7.56304564848932 44.97612466562052, 7.671077441892763 45.00676340143624, 7.739660019780326 45.10100884469237, 7.513135087952872 45.04417775442011))*/
 }
 ```
+
+# Additional requested features
+
+1. The container definition file is inside the project
+2. This would be the diagram for an amazon solution for this project:    
+![logo](resources/amazon_schema.jpg)
+3. The SQL queries are insider the [SQL](sql/) folder
